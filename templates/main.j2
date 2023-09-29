@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title> CS 340 - Introduction to Databases - Flask Demo </title>
+</head>
+<body>
+    <h1>CS 340 - Introduction to Databases </h1>
+    <p>Welcome to my demonstration project created to show how to create a Flask appand connect it to a MySQL database.<p>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Location</th>
+        <th>Preferred Color</th>
+    </tr>
+    <tbody>
+    {% for person in people %}
+    <tr>
+        <td>{{person['name']}}</td>
+        <td>{{person['age']}}</td>
+        <td>{{person['location']}}</td>
+        <td>{{person['favorite_color']}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>
