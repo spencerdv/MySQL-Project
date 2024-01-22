@@ -1,11 +1,22 @@
-import MySQLdb as mariadb
-from database.db_credentials import host, user, passwd, db
+import MySQLdb
+import os
+from dotenv import load_dotenv, find_dotenv
+
+# Load our environment variables from the .env file in the root of our project.
+load_dotenv(find_dotenv())
+
+# Set the variables in our application with those environment variables
+host = "classmysql.engr.oregonstate.edu"
+user = "cs340_mahmoudk"
+passwd = "7813"
+db = "cs340_mahmoudk"
+cursorClass = "DictCursor"
 
 def connect_to_database(host = host, user = user, passwd = passwd, db = db):
     '''
     connects to a database and returns a database objects
     '''
-    db_connection = mariadb.connect(host,user,passwd,db)
+    db_connection = MySQLdb.connect(host,user,passwd,db)
     return db_connection
 
 def execute_query(db_connection = None, query = None, query_params = ()):
@@ -24,14 +35,15 @@ def execute_query(db_connection = None, query = None, query_params = ()):
         print("No connection to the database found! Have you called connect_to_database() first?")
         return None
 
+
     if query is None or len(query.strip()) == 0:
         print("query is empty! Please pass a SQL query in query")
         return None
 
     print("Executing %s with %s" % (query, query_params));
     # Create a cursor to execute query. Why? Because apparently they optimize execution by retaining a reference according to PEP0249
-    cursor = db_connection.cursor(mariadb.cursors.DictCursor)
-
+    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    
     '''
     params = tuple()
     #create a tuple of paramters to send with the query
@@ -48,7 +60,7 @@ def execute_query(db_connection = None, query = None, query_params = ()):
 if __name__ == '__main__':
     print("Executing a sample query on the database using the credentials from db_credentials.py")
     db = connect_to_database()
-    query = "SELECT * from bsg_people;"
+    query = "SELECT * from students;"
     results = execute_query(db, query);
     print("Printing results of %s" % query)
 
