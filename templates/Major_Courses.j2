@@ -1,0 +1,54 @@
+<!--
+Citations:
+Initial template design for table from https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=table-with-add-and-delete-row-feature
+it was adapted from the tutorial to fit our needs for the project.
+with the exception of the following code that we developed:
+1. search bar
+2. the header title
+3. the for loop to populate the table with the course list
+4. Additional classes and styling for the table
+-->
+
+
+{% extends 'base.j2' %}
+{% block content %}
+    <div class="container py-1">
+    <table class="table table-hover table-bordered table-responsive">
+        <div class="table-title table-wrapper">
+            <div class="row ml-auto col-auto">
+                <div class=" col-sm-4">
+                    <input type="text"  class="search-input" placeholder="Search for Major">
+                </div>
+                <div class="col-sm-4">
+                    <h2>Manage <b>Major Course</b></h2>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-info add-new"> <span class="material-symbols-outlined">add_box</span> Add New Major Course</button>
+                </div>
+            </div>
+        </div>
+    <thead>
+        <th>Major Course ID</th>
+        <th>Major Name</th>
+        <th>Course Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </thead>
+    <tbody>
+    {% for course in majorCourseList %}
+    <tr>
+        <td>{{course['majorCourseID']}}</td>
+        <td>{{course['MajorName']}}</td>
+        <td>{{course['CourseName']}}</td>
+         <td><button class="add btn" title="Save" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></button>
+                <button class="edit btn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></button>
+            </td>
+            <td> <button class="delete btn" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></button></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
